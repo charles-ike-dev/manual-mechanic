@@ -33,7 +33,22 @@ const formatVercelMessages = (chatHistory: VercelChatMessage[]) => {
   return formattedDialogueTurns.join("\n");
 };
 
-const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question, in its original language.
+/**
+ * This handler initializes and calls a retrieval chain. It composes the chain using
+ * LangChain Expression Language. See the docs for more information:
+ *
+ * https://js.langchain.com/v0.2/docs/how_to/qa_chat_history_how_to/
+ */
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const namespace = body.namespace ?? "default";
+    const systemprompt = body.systemprompt ?? "";
+    const messages = body.messages ?? [];
+    const previousMessages = messages.slice(0, -1);
+    const currentMessageContent = messages[messages.length - 1].content;
+
+    const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation and a follow up question, rephrase the follow up question to be a standalone question, in its original language.
 
 <chat_history>
   {chat_history}
@@ -41,13 +56,11 @@ const CONDENSE_QUESTION_TEMPLATE = `Given the following conversation and a follo
 
 Follow Up Input: {question}
 Standalone question:`;
-const condenseQuestionPrompt = PromptTemplate.fromTemplate(
-  CONDENSE_QUESTION_TEMPLATE
-);
+    const condenseQuestionPrompt = PromptTemplate.fromTemplate(
+      CONDENSE_QUESTION_TEMPLATE
+    );
 
-const ANSWER_TEMPLATE = `You are an assistant that helps user to find answers related to company contents. You will be provided with multiple piece of information in JSON format and a question. The JSON contains 4 properties: Filename, PageFrom, PageTo, Content, Score. Your task is to answer the question using only the Content property from provided data and to provide citation of the section of the document used to answer the question. If you don't have all the information needed to answer this question, give an answer anyway, even if partial. Use only the information provided to answer. If you still don't know suggest possible measures to get an answer. To answer give priority to Content taken from items with the highest Score.
-
-Each part of the answer must be annotated with a citation of the document section it is generated from. Use the following format for the citations: - [Filename][PageFrom] If the PageTo property equal to the PageFrom - eg. Filename: "Policy.pdf", PageFrom: 10, PageTo: 10 => [Policy.pdf][10] - [Filename][PageFrom-PageTo] otherwise, eg. [Policy.pdf][15-17] - eg. Filename: "Policy.pdf", PageFrom: 15, PageTo: 17 => [Policy.pdf][15-17] Use only the Filename, PageFrom and PageTo properties from the document sections provided to generate the citation in the answer. If a specific part references multiple section create multiple reference citation, do not merge them in a single one.
+    const ANSWER_TEMPLATE = `${systemprompt}
 
 Answer the question based only on the following context and chat history:
 <context>
@@ -60,20 +73,9 @@ Answer the question based only on the following context and chat history:
 
 Question: {question}
 `;
-const answerPrompt = PromptTemplate.fromTemplate(ANSWER_TEMPLATE);
 
-/**
- * This handler initializes and calls a retrieval chain. It composes the chain using
- * LangChain Expression Language. See the docs for more information:
- *
- * https://js.langchain.com/v0.2/docs/how_to/qa_chat_history_how_to/
- */
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json();
-    const messages = body.messages ?? [];
-    const previousMessages = messages.slice(0, -1);
-    const currentMessageContent = messages[messages.length - 1].content;
+    console.log("ANSWER_TEMPLATE", ANSWER_TEMPLATE);
+    const answerPrompt = PromptTemplate.fromTemplate(ANSWER_TEMPLATE);
 
     const model = new ChatOpenAI({
       model: process.env.OPENAI_MODEL!,
@@ -88,7 +90,7 @@ export async function POST(req: NextRequest) {
         model: "text-embedding-3-large",
         dimensions: 3072,
       }),
-      { pineconeIndex, namespace: process.env.PINECONE_NAMESPACE! }
+      { pineconeIndex, namespace: namespace }
     );
 
     /**
