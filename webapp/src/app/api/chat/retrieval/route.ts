@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
         model: "text-embedding-3-large",
         dimensions: 3072,
       }),
-      { pineconeIndex }
+      { pineconeIndex, namespace: process.env.PINECONE_NAMESPACE! }
     );
 
     /**
