@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from langchain_community.document_loaders import UnstructuredFileLoader
-from langchain_text_splitters import CharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
 
@@ -44,7 +44,8 @@ for file_name, file_path in all_files:
         print(f"Processing file: {file_name}")
         loader = UnstructuredFileLoader(file_path)
         documents = loader.load()
-        text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+        text_splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000, chunk_overlap=0)
         docs = text_splitter.split_documents(documents)
         embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
