@@ -8,8 +8,8 @@ from langchain_openai import OpenAIEmbeddings
 
 load_dotenv(override=True)  # take environment variables from .env.
 
-DIR_PATH = "../docs/zero"
-NAMESPACE = "zero"
+DIR_PATH = "../docs/v1"
+NAMESPACE = "v1"
 
 index_name = os.getenv("PINECONE_INDEX")
 
@@ -47,6 +47,7 @@ for file_name, file_path in all_files:
         text_splitter = RecursiveCharacterTextSplitter(
             chunk_size=1000, chunk_overlap=0)
         docs = text_splitter.split_documents(documents)
+        print("docs", docs)
         embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 
         vectorstore = PineconeVectorStore(

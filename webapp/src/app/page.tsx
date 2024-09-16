@@ -1,29 +1,23 @@
-'use client';
+"use client";
 
-import { useChat } from 'ai/react';
+import Link from "next/link";
 
-export default function Chat() {
-  const { messages, input, handleInputChange, handleSubmit } = useChat();
-
+export default function Page() {
   return (
-    <div className="flex flex-col w-full max-w-md py-24 mx-auto stretch">
-      {messages.length > 0
-        ? messages.map(m => (
-            <div key={m.id} className="whitespace-pre-wrap">
-              {m.role === 'user' ? 'User: ' : 'AI: '}
-              {m.content}
-            </div>
-          ))
-        : null}
-
-      <form onSubmit={handleSubmit}>
-        <input
-          className="fixed bottom-0 w-full max-w-md p-2 mb-8 border border-gray-300 rounded shadow-xl"
-          value={input}
-          placeholder="Say something..."
-          onChange={handleInputChange}
-        />
-      </form>
+    <div className="p-16 flex flex-col">
+      <h2 className="text-2xl mb-4">Iterazioni:</h2>
+      <ul className="list-disc pl-8 gap-y-2 flex flex-col">
+        <li>
+          <Link href="/zerotest" className="hover:underline underline-offset-4">
+            Zero Sperimentale
+          </Link>
+        </li>
+        <li>
+          <Link href="/v1test" className="hover:underline underline-offset-4">
+            Versione 1
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 }
