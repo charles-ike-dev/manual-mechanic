@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "question": "Che tipo di olio devo usare per il cambio?"
+  },
+  {
+    "id": 2,
+    "question": "Quali sono gli intervalli di manutenzione del cambio?"
+  },
+  {
+    "id": 3,
+    "question": "Quali registrazioni sono necessarie sul cambio?"
+  },
+  {
+    "id": 4,
+    "question": "Quanto tempo è necessario per fare la sostituzione del cambio?"
+  },
+  {
+    "id": 5,
+    "question": "Quali sono le centraline che devo controllare per verificare l’efficienza della rete CAN?"
+  },
+  {
+    "id": 6,
+    "question": "Quali sono i PIN dei moduli interni del cambio?"
+  },
+  {
+    "id": 7,
+    "question": "Cosa devo fare quando si accendono le spie sul cluster riguardo il malfunzionamento del cambio?"
+  },
+  {
+    "id": 8,
+    "question": "Come si sostituisce il cilindro pneumatico frizione?"
+  },
+  {
+    "id": 9,
+    "question": "Come si sostituisce la centralina del motore?"
+  },
+  {
+    "id": 10,
+    "question": "Cosa devo fare se il motore emette un rumore anomalo durante il funzionamento?"
+  },
+  {
+    "id": 11,
+    "question": "Cosa devo fare nel caso vengano riscontrati problemi legati al turbocompressore?"
+  },
+  {
+    "id": 12,
+    "question": "Posso usare olio 10W40?"
+  },
+  {
+    "id": 13,
+    "question": "Qual è il valore di pressione massima al rail?"
+  },
+  {
+    "id": 14,
+    "question": "Quali sono i valori di tolleranza per la sporgenza pistoni?"
+  },
+  {
+    "id": 15,
+    "question": "Mi mostri lo schema elettrico del motore?"
+  },
+  {
+    "id": 16,
+    "question": "La risoluzione di quali dtc attivi porta con maggiore probabilità a risolvere problemi al sistema di alimentazione combustibile del veicolo?"
+  },
+  {
+    "id": 17,
+    "question": "Puoi dirmi per il mio veicolo (VIN) quali sono i prossimi tagliandi di manutenzione previsti, quali operazioni sono coinvolte e quali ricambi/olii sono necessari?"
+  },
+  {
+    "id": 18,
+    "question": "È comparso il codice guasto 0000AF – 03 cosa devo fare? Sono previste operazioni di sostituzione? Per le sostituzioni qual è il tempo previsto e quali ricambi sono necessari?"
+  },
+  {
+    "id": 19,
+    "question": "C'è qualche campagna di richiamo per il VIN: WJMM62AVZ0C436605?"
+  },
+  {
+    "id": 20,
+    "question": "Quali sono i connettori della centralina del motore? Non trovo i connettori della centralina motore. Dove è posizionata la centralina del motore?"
+  }
+]

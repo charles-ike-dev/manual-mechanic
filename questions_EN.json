@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "question": "What type of oil should I use for the gearbox?"
+  },
+  {
+    "id": 2,
+    "question": "What are the maintenance intervals for the gearbox?"
+  },
+  {
+    "id": 3,
+    "question": "What adjustments are required on the gearbox?"
+  },
+  {
+    "id": 4,
+    "question": "How long does it take to replace the gearbox?"
+  },
+  {
+    "id": 5,
+    "question": "Which control units do I need to check for CAN network efficiency?"
+  },
+  {
+    "id": 6,
+    "question": "What are the PINs of the internal gearbox modules?"
+  },
+  {
+    "id": 7,
+    "question": "What should I do when warning lights regarding a gearbox malfunction appear on the cluster?"
+  },
+  {
+    "id": 8,
+    "question": "How do you replace the pneumatic clutch cylinder?"
+  },
+  {
+    "id": 9,
+    "question": "How do you replace the engine control unit?"
+  },
+  {
+    "id": 10,
+    "question": "What should I do if the engine makes an abnormal noise during operation?"
+  },
+  {
+    "id": 11,
+    "question": "What should I do if there are issues with the turbocharger?"
+  },
+  {
+    "id": 12,
+    "question": "Can I use 10W40 oil?"
+  },
+  {
+    "id": 13,
+    "question": "What is the maximum pressure value at the rail?"
+  },
+  {
+    "id": 14,
+    "question": "What are the tolerance values for piston protrusion?"
+  },
+  {
+    "id": 15,
+    "question": "Can you show me the wiring diagram of the engine?"
+  },
+  {
+    "id": 16,
+    "question": "Which active DTCs are most likely to resolve issues in the fuel system of the vehicle?"
+  },
+  {
+    "id": 17,
+    "question": "Can you tell the next scheduled maintenance services for my vehicle (VIN), what operations are involved, and what spare parts/oils are needed?"
+  },
+  {
+    "id": 18,
+    "question": "The fault code 0000AF - 03 has appeared what should I do? Are replacement operations planned? What is the expected time for replacements and which spare parts are required?"
+  },
+  {
+    "id": 19,
+    "question": "Is there a recall campaign for VIN: WJMM62AVZ0C436605?"
+  },
+  {
+    "id": 20,
+    "question": "Which are the connectors of the engine control unit? I can't find the connectors for the engine control unit. Where is the engine control unit located?"
+  }
+]

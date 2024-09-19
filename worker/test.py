@@ -2,7 +2,10 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from UI_loader import UIDocumentLoader
 
 
-loader = UIDocumentLoader("../docs/v1/IU_5000011779_1.xml")
+# loader = UIDocumentLoader("../docs/v1/IU_5000011779_1.xml")
+
+# get all the document in folder v1
+loader = UIDocumentLoader("../docs/v1/IU_5000010570_2.xml")
 
 documents = loader.load()
 # text_splitter = RecursiveCharacterTextSplitter(

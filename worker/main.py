@@ -4,14 +4,21 @@ from langchain_community.document_loaders import UnstructuredFileLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
-
+from UI_loader import UIDocumentLoader
+from tenacity import retry, stop_after_attempt, wait_exponential
+from tqdm import tqdm
+import time
 
 load_dotenv(override=True)  # take environment variables from .env.
 
 DIR_PATH = "../docs/v1"
-NAMESPACE = "v1"
+NAMESPACE = "v2"
 
 index_name = os.getenv("PINECONE_INDEX")
+
+embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+vectorstore = PineconeVectorStore(
+    index_name=index_name, embedding=embeddings, namespace=NAMESPACE)
 
 
 def get_all_files(directory):
@@ -38,21 +45,31 @@ def get_all_files(directory):
     return file_list
 
 
+@retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
+def process_file(file_name, file_path, vectorstore):
+    loader = UIDocumentLoader(file_path)
+    documents = loader.load()
+    # text_splitter = RecursiveCharacterTextSplitter(
+    #     chunk_size=1000, chunk_overlap=0)
+    # docs = text_splitter.split_documents(documents)
+    # print()
+    # print("docs", docs)
+
+    # the id is the file name with a suffix of the document number after the text split
+    # vectorstore.add_documents(
+    #     documents=docs, ids=[file_name + f"_{i}" for i in range(len(docs))])
+    vectorstore.add_documents(documents=documents, ids=[file_name])
+
+
 all_files = get_all_files(DIR_PATH)
-for file_name, file_path in all_files:
+
+for file_name, file_path in tqdm(all_files):
+    # if not file_name.endswith(".xml"):
+    #     continue
     try:
         print(f"Processing file: {file_name}")
-        loader = UnstructuredFileLoader(file_path)
-        documents = loader.load()
-        text_splitter = RecursiveCharacterTextSplitter(
-            chunk_size=1000, chunk_overlap=0)
-        docs = text_splitter.split_documents(documents)
-        print("docs", docs)
-        embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
+        process_file(file_name, file_path, vectorstore)
 
-        vectorstore = PineconeVectorStore(
-            index_name=index_name, embedding=embeddings, namespace=NAMESPACE)
-        vectorstore.add_documents(docs)
     except Exception as e:
         print(f"Error processing file {file_name}: {e}")
         continue
