@@ -13,8 +13,13 @@ export default function Page() {
           </Link>
         </li>
         <li>
-          <Link href="/v1test" className="hover:underline underline-offset-4">
+          <Link href="/v1" className="hover:underline underline-offset-4">
             Versione 1
+          </Link>
+        </li>
+        <li>
+          <Link href="/v2" className="hover:underline underline-offset-4">
+            Versione 2
           </Link>
         </li>
       </ul>
