@@ -22,6 +22,16 @@ export default function Page() {
             Versione 2
           </Link>
         </li>
+        <li>
+          <Link href="/v3" className="hover:underline underline-offset-4">
+            Versione 3
+          </Link>
+        </li>
+        <li>
+          <Link href="/v4" className="hover:underline underline-offset-4">
+            Versione 4
+          </Link>
+        </li>
       </ul>
     </div>
   );

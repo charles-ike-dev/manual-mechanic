@@ -8,11 +8,13 @@ from UI_loader import UIDocumentLoader
 from tenacity import retry, stop_after_attempt, wait_exponential
 from tqdm import tqdm
 import time
+from langchain_unstructured import UnstructuredLoader
+from utils import flatten_dict
 
 load_dotenv(override=True)  # take environment variables from .env.
 
-DIR_PATH = "../docs/v1"
-NAMESPACE = "v2"
+DIR_PATH = "../docs/full"
+NAMESPACE = "v4"
 
 index_name = os.getenv("PINECONE_INDEX")
 
@@ -46,7 +48,7 @@ def get_all_files(directory):
 
 
 @retry(stop=stop_after_attempt(3), wait=wait_exponential(multiplier=1, min=4, max=10))
-def process_file(file_name, file_path, vectorstore):
+def process_xml(file_name, file_path, vectorstore):
     loader = UIDocumentLoader(file_path)
     documents = loader.load()
     # text_splitter = RecursiveCharacterTextSplitter(
@@ -61,6 +63,22 @@ def process_file(file_name, file_path, vectorstore):
     vectorstore.add_documents(documents=documents, ids=[file_name])
 
 
+def process_file(file_name, file_path, vectorstore):
+    loader = UnstructuredLoader(file_path)
+    documents = loader.load()
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000, chunk_overlap=0)
+    docs = text_splitter.split_documents(documents)
+    for doc in docs:
+        # remove text_as_html from metadata
+        doc.metadata.pop("text_as_html", None)
+        doc.metadata = flatten_dict(doc.metadata)
+
+    # the id is the file name with a suffix of the document number after the text split
+    vectorstore.add_documents(
+        documents=docs, ids=[file_name + f"_{i}" for i in range(len(docs))])
+
+
 all_files = get_all_files(DIR_PATH)
 
 for file_name, file_path in tqdm(all_files):
@@ -68,8 +86,13 @@ for file_name, file_path in tqdm(all_files):
     #     continue
     try:
         print(f"Processing file: {file_name}")
-        process_file(file_name, file_path, vectorstore)
-
+        if file_name.endswith(".xml"):
+            # process_xml(file_name, file_path, vectorstore)
+            continue
+        else:
+            process_file(file_name, file_path, vectorstore)
     except Exception as e:
         print(f"Error processing file {file_name}: {e}")
         continue
+
+print("fatto")
