@@ -14,7 +14,7 @@ from utils import flatten_dict
 load_dotenv(override=True)  # take environment variables from .env.
 
 DIR_PATH = "../docs/v8"
-NAMESPACE = "v7"
+NAMESPACE = "v8"
 
 index_name = os.getenv("PINECONE_INDEX")
 
@@ -89,7 +89,7 @@ for file_name, file_path in tqdm(all_files):
     # if not file_name.endswith(".xml"):
     #     continue
     try:
-        print(f"Processing file: {file_name}")
+        # print(f"Processing file: {file_name}")
         if file_name.endswith(".xml"):
             process_xml(file_name, file_path, vectorstore)
         elif file_name.lower().endswith(tuple(skipped_files_extesions)):

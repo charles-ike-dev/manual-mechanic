@@ -75,7 +75,7 @@ class UIDocumentLoader(BaseLoader):
         ])
 
         # Highlight unprocessed tags
-        highlight_unprocessed_tags(root, processed_tags)
+        # highlight_unprocessed_tags(root, processed_tags)
 
         # Helper function to extract text
         def get_text(element, tag):

@@ -11,7 +11,7 @@ import type { FormEvent } from "react";
 import { ChatMessageBubble } from "@/components/ChatMessageBubble";
 import { IntermediateStep } from "@/components/IntermediateStep";
 
-const NAMESPACE = "v7";
+const NAMESPACE = "v8";
 const SYSTEMPROMPT = `You are a specialized assistant for Iveco, tasked with reading and analyzing technical documents, manuals, and internal resources. Your goal is to provide precise, accurate, and complete answers to technical and operational questions by retrieving relevant information from available documents and linking them using the specific codes and references whenever possible.
 
 **Instructions:**
