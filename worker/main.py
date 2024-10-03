@@ -13,7 +13,7 @@ from utils import flatten_dict
 
 load_dotenv(override=True)  # take environment variables from .env.
 
-DIR_PATH = "../docs/full"
+DIR_PATH = "../docs/v8"
 NAMESPACE = "v7"
 
 index_name = os.getenv("PINECONE_INDEX")

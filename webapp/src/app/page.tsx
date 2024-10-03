@@ -14,37 +14,42 @@ export default function Page() {
         </li>
         <li>
           <Link href="/v1" className="hover:underline underline-offset-4">
-            Versione 1
+            v1: SM xml files
           </Link>
         </li>
         <li>
           <Link href="/v2" className="hover:underline underline-offset-4">
-            Versione 2
+            v2: SM xml files
           </Link>
         </li>
         <li>
           <Link href="/v3" className="hover:underline underline-offset-4">
-            Versione 3
+            v3: SM xml files with custom xml loader
           </Link>
         </li>
         <li>
           <Link href="/v4" className="hover:underline underline-offset-4">
-            Versione 4
+            v4: SM xml files with custom xml loader (metadata strucutre updated)
           </Link>
         </li>
         <li>
           <Link href="/v5" className="hover:underline underline-offset-4">
-            Versione 5
+            v5: entire eTim folder
           </Link>
         </li>
         <li>
           <Link href="/v6" className="hover:underline underline-offset-4">
-            Versione 6
+            v6: only pdf and xml
           </Link>
         </li>
         <li>
           <Link href="/v7" className="hover:underline underline-offset-4">
-            Versione 7
+            v7: entire eTim folder + Custom XML loader
+          </Link>
+        </li>
+        <li>
+          <Link href="/v8" className="hover:underline underline-offset-4">
+            v8: uploaded the entire eTim folder + missing SM xml files
           </Link>
         </li>
       </ul>
