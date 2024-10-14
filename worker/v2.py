@@ -10,17 +10,22 @@ from tqdm import tqdm
 import time
 from langchain_unstructured import UnstructuredLoader
 from utils import flatten_dict
+import unicodedata
 
 load_dotenv(override=True)  # take environment variables from .env.
 
-DIR_PATH = "../docs/v8"
-NAMESPACE = "v8"
+DIR_PATH = "../docs/v9"
+NAMESPACE = "v9"
 
 index_name = os.getenv("PINECONE_INDEX")
 
 embeddings = OpenAIEmbeddings(model="text-embedding-3-large")
 vectorstore = PineconeVectorStore(
     index_name=index_name, embedding=embeddings, namespace=NAMESPACE)
+
+
+def to_ascii(input_str):
+    return unicodedata.normalize('NFKD', input_str).encode('ascii', 'ignore').decode('ascii')
 
 
 def get_all_files(directory):
@@ -51,6 +56,10 @@ def get_all_files(directory):
 def process_xml(file_name, file_path, vectorstore):
     loader = UIDocumentLoader(file_path)
     documents = loader.load()
+
+    # Convert filename to ASCII
+    ascii_file_name = to_ascii(file_name)
+
     # text_splitter = RecursiveCharacterTextSplitter(
     #     chunk_size=1000, chunk_overlap=0)
     # docs = text_splitter.split_documents(documents)
@@ -60,7 +69,7 @@ def process_xml(file_name, file_path, vectorstore):
     # the id is the file name with a suffix of the document number after the text split
     # vectorstore.add_documents(
     #     documents=docs, ids=[file_name + f"_{i}" for i in range(len(docs))])
-    vectorstore.add_documents(documents=documents, ids=[file_name])
+    vectorstore.add_documents(documents=documents, ids=[ascii_file_name])
 
 
 def process_file(file_name, file_path, vectorstore):
@@ -73,10 +82,13 @@ def process_file(file_name, file_path, vectorstore):
         # remove text_as_html from metadata
         doc.metadata.pop("text_as_html", None)
         doc.metadata = flatten_dict(doc.metadata)
+    # Convert filename to ASCII
+    ascii_file_name = to_ascii(file_name)
+    # Generate ASCII IDs
+    ids = [f"{ascii_file_name}_{i}" for i in range(len(docs))]
 
     # the id is the file name with a suffix of the document number after the text split
-    vectorstore.add_documents(
-        documents=docs, ids=[file_name + f"_{i}" for i in range(len(docs))])
+    vectorstore.add_documents(documents=docs, ids=ids)
 
 
 all_files = get_all_files(DIR_PATH)
