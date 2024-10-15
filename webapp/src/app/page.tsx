@@ -52,6 +52,11 @@ export default function Page() {
             v8: uploaded the entire eTim folder + missing SM xml files
           </Link>
         </li>
+        <li>
+          <Link href="/v9" className="hover:underline underline-offset-4">
+            v9: uploaded the correct files (missing pip and sm)
+          </Link>
+        </li>
       </ul>
     </div>
   );

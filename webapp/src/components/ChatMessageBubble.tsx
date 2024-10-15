@@ -13,7 +13,24 @@ export function ChatMessageBubble(props: {
     props.message.role === "user" ? "ml-auto" : "mr-auto";
   const prefix = props.message.role === "user" ? "🧑" : props.aiEmoji;
 
-  console.log(props.sources);
+  const sourceList =
+    props.sources && props.sources.length
+      ? `\n\n🔍 Sources:\n\n${props.sources
+          .map((source, i) => {
+            let sourceString = `${i + 1}) "${
+              source?.metadata?.source?.split("/").pop() ?? ""
+            }"`;
+            if (source.metadata.page !== undefined) {
+              sourceString += `\nPage ${source.metadata.page + 1} - `;
+            }
+            if (source.metadata?.loc?.lines !== undefined) {
+              sourceString += `\nLines ${source.metadata?.loc?.lines?.from} to ${source.metadata?.loc?.lines?.to}`;
+            }
+            return sourceString;
+          })
+          .join("\n")}`
+      : "";
+
   return (
     <div className="flex w-full flex-col mb-8 gap-y-2">
       <div
@@ -32,21 +49,17 @@ export function ChatMessageBubble(props: {
                 {props.sources?.map((source, i) => (
                   <div
                     className="flex flex-col items-start justify-start mt-2 text-left"
-                    key={"source:" + i}
+                    key={"source-" + i}
                   >
-                    <span>
-                      {i + 1}
-                      {")"} &quot;
-                      {source.metadata?.Title ? source.metadata.Title : ""}
-                      &quot;
-                    </span>{" "}
+                    <span className="font-semibold">
+                      {`${i + 1}) "${
+                        source?.metadata?.source?.split("/").pop() ?? ""
+                      }"`}
+                    </span>
                     <span className="pt-2 font-semibold">
-                      {source.metadata.page !== undefined ? (
+                      {source.metadata.page !== undefined && (
                         <>Page {source.metadata.page + 1} - </>
-                      ) : (
-                        ""
                       )}
-                      {source?.metadata?.source?.split("/").pop() ?? ""}
                     </span>
                     {source.metadata?.loc?.lines !== undefined ? (
                       <div>
@@ -67,7 +80,7 @@ export function ChatMessageBubble(props: {
         </div>
       </div>
       <div className={`${alignmentClassName} rounded max-w-[80%] flex`}>
-        <CopyBtn text={props.message.content} />
+        <CopyBtn text={props.message.content + sourceList} />
       </div>
     </div>
   );
