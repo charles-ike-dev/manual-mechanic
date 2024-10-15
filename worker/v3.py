@@ -13,7 +13,7 @@ import unicodedata
 import logging
 
 
-DIR_PATH = "../docs/v9"
+DIR_PATH = "../docs/v9_failed"
 NAMESPACE = "v9"
 
 
@@ -23,7 +23,7 @@ load_dotenv(override=True)  # take environment variables from .env.
 os.environ["OPENAI_LOG_LEVEL"] = "WARNING"
 
 # Configure logging
-logging.basicConfig(level=logging.WARNING, format='%(levelname)s: %(message)s')
+logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
 
 # Create a file handler for logging errors
 error_log_file = 'error.log'
@@ -84,16 +84,16 @@ def process_xml(file_name, file_path, vectorstore):
     # Convert filename to ASCII
     ascii_file_name = to_ascii(file_name)
 
-    # text_splitter = RecursiveCharacterTextSplitter(
-    #     chunk_size=1000, chunk_overlap=0)
-    # docs = text_splitter.split_documents(documents)
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000, chunk_overlap=0)
+    docs = text_splitter.split_documents(documents)
     # print()
     # print("docs", docs)
 
     # the id is the file name with a suffix of the document number after the text split
     # vectorstore.add_documents(
     #     documents=docs, ids=[file_name + f"_{i}" for i in range(len(docs))])
-    vectorstore.add_documents(documents=documents, ids=[ascii_file_name])
+    vectorstore.add_documents(documents=docs, ids=[ascii_file_name])
 
 
 def process_file(file_name, file_path, vectorstore):
@@ -136,7 +136,8 @@ for file_name, file_path in tqdm(all_files):
             process_file(file_name, file_path, vectorstore)
     except Exception as e:
         # Log the error to the error log file
-        logging.error(f"Error processing file {file_name}: {e}")
+        logging.error(f"Error processing file {
+                      file_name}: {str(e)}",  exc_info=True)
         continue
 
 print("fatto")
