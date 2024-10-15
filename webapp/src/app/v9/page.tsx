@@ -127,7 +127,7 @@ export default function Page() {
                   message={m}
                   aiEmoji={emoji}
                   sources={sourcesForMessages[sourceKey]}
-                ></ChatMessageBubble>
+                />
               );
             })
           : ""}

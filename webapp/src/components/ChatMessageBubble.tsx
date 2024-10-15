@@ -1,5 +1,6 @@
 import type { Message } from "ai/react";
 import { MarkDown } from "./Markdown";
+import CopyBtn from "./copyBtn";
 
 export function ChatMessageBubble(props: {
   message: Message;
@@ -14,54 +15,59 @@ export function ChatMessageBubble(props: {
 
   console.log(props.sources);
   return (
-    <div
-      className={`${alignmentClassName} ${colorClassName} rounded px-4 py-2 max-w-[80%] mb-8 flex`}
-    >
-      <div className="mr-2">{prefix}</div>
-      <div className="whitespace-pre-wrap flex flex-col">
-        {/* <span>{props.message.content}</span> */}
-        <MarkDown>{props.message.content}</MarkDown>
-        {props.sources && props.sources.length ? (
-          <>
-            <code className="mt-4 mr-auto bg-neutral-200 px-2 py-1 rounded text-sm">
-              <h2>🔍 Sources:</h2>
-            </code>
-            <code className="mt-1 mr-2 bg-neutral-200 px-2 py-1 rounded text-xs">
-              {props.sources?.map((source, i) => (
-                <div
-                  className="flex flex-col items-start justify-start mt-2 text-left"
-                  key={"source:" + i}
-                >
-                  <span>
-                    {i + 1}
-                    {")"} &quot;
-                    {source.metadata?.Title ? source.metadata.Title : ""}
-                    &quot;
-                  </span>{" "}
-                  <span className="pt-2 font-semibold">
-                    {source.metadata.page !== undefined ? (
-                      <>Page {source.metadata.page + 1} - </>
+    <div className="flex w-full flex-col mb-8 gap-y-2">
+      <div
+        className={`${alignmentClassName} ${colorClassName} rounded px-4 py-2 max-w-[80%] flex`}
+      >
+        <div className="mr-2">{prefix}</div>
+        <div className="whitespace-pre-wrap flex flex-col">
+          {/* <span>{props.message.content}</span> */}
+          <MarkDown>{props.message.content}</MarkDown>
+          {props.sources && props.sources.length ? (
+            <>
+              <code className="mt-4 mr-auto bg-neutral-200 px-2 py-1 rounded text-sm">
+                <h2>🔍 Sources:</h2>
+              </code>
+              <code className="mt-1 mr-2 bg-neutral-200 px-2 py-1 rounded text-xs">
+                {props.sources?.map((source, i) => (
+                  <div
+                    className="flex flex-col items-start justify-start mt-2 text-left"
+                    key={"source:" + i}
+                  >
+                    <span>
+                      {i + 1}
+                      {")"} &quot;
+                      {source.metadata?.Title ? source.metadata.Title : ""}
+                      &quot;
+                    </span>{" "}
+                    <span className="pt-2 font-semibold">
+                      {source.metadata.page !== undefined ? (
+                        <>Page {source.metadata.page + 1} - </>
+                      ) : (
+                        ""
+                      )}
+                      {source?.metadata?.source?.split("/").pop() ?? ""}
+                    </span>
+                    {source.metadata?.loc?.lines !== undefined ? (
+                      <div>
+                        <br />
+                        Lines {source.metadata?.loc?.lines?.from} to{" "}
+                        {source.metadata?.loc?.lines?.to}
+                      </div>
                     ) : (
                       ""
                     )}
-                    {source?.metadata?.source?.split("/").pop() ?? ""}
-                  </span>
-                  {source.metadata?.loc?.lines !== undefined ? (
-                    <div>
-                      <br />
-                      Lines {source.metadata?.loc?.lines?.from} to{" "}
-                      {source.metadata?.loc?.lines?.to}
-                    </div>
-                  ) : (
-                    ""
-                  )}
-                </div>
-              ))}
-            </code>
-          </>
-        ) : (
-          ""
-        )}
+                  </div>
+                ))}
+              </code>
+            </>
+          ) : (
+            ""
+          )}
+        </div>
+      </div>
+      <div className={`${alignmentClassName} rounded max-w-[80%] flex`}>
+        <CopyBtn text={props.message.content} />
       </div>
     </div>
   );
