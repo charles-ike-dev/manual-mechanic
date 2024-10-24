@@ -13,8 +13,8 @@ import unicodedata
 import logging
 
 
-DIR_PATH = "../docs/v9_failed"
-NAMESPACE = "v9"
+DIR_PATH = "../docs/v9_nopip"
+NAMESPACE = "v9_nopip"
 
 
 load_dotenv(override=True)  # take environment variables from .env.
@@ -23,7 +23,7 @@ load_dotenv(override=True)  # take environment variables from .env.
 os.environ["OPENAI_LOG_LEVEL"] = "WARNING"
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG, format='%(levelname)s: %(message)s')
+logging.basicConfig(level=logging.WARNING, format='%(levelname)s: %(message)s')
 
 # Create a file handler for logging errors
 error_log_file = 'error.log'
@@ -87,6 +87,11 @@ def process_xml(file_name, file_path, vectorstore):
     text_splitter = RecursiveCharacterTextSplitter(
         chunk_size=1000, chunk_overlap=0)
     docs = text_splitter.split_documents(documents)
+
+    for doc in docs:
+        # add filename to metadata
+        doc.metadata["filename"] = ascii_file_name
+        print("doc.metadata", doc.metadata)
     # print()
     # print("docs", docs)
 

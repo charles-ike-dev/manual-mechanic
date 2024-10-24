@@ -74,7 +74,6 @@ Answer the question based only on the following context and chat history:
 Question: {question}
 `;
 
-    console.log("ANSWER_TEMPLATE", ANSWER_TEMPLATE);
     const answerPrompt = PromptTemplate.fromTemplate(ANSWER_TEMPLATE);
 
     const model = new ChatOpenAI({
@@ -156,6 +155,7 @@ Question: {question}
     const serializedSources = Buffer.from(
       JSON.stringify(
         documents.map((doc) => {
+          console.log("doc", doc.metadata);
           return {
             pageContent: doc.pageContent.slice(0, 50) + "...",
             metadata: doc.metadata,
