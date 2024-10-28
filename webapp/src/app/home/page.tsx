@@ -57,6 +57,16 @@ export default function Page() {
             v9: uploaded the correct files (missing pip and sm)
           </Link>
         </li>
+        <li>
+          <Link href="/v9_test" className="hover:underline underline-offset-4">
+            v9 fix: bugfix filename and sources
+          </Link>
+        </li>{" "}
+        <li>
+          <Link href="/v9_nopip" className="hover:underline underline-offset-4">
+            v9 nopip: version removing temporary the Pip files
+          </Link>
+        </li>
       </ul>
     </div>
   );
