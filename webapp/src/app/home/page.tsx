@@ -64,7 +64,7 @@ export default function Page() {
         </li>{" "}
         <li>
           <Link href="/v9_nopip" className="hover:underline underline-offset-4">
-            v9 nopip: version removing temporary the Pip files
+            v9 nopip: temporary removed PIP files to check improvements
           </Link>
         </li>
       </ul>
