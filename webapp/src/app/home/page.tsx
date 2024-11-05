@@ -69,7 +69,13 @@ export default function Page() {
         </li>{" "}
         <li>
           <Link href="/v13" className="hover:underline underline-offset-4">
-            v13: frontend improvements, bugfixes and PIP files re-added
+            v13: frontend improvements, bugfixes and PIP files re-added, adding
+            S-WAY AS in the systemprompt
+          </Link>
+        </li>
+        <li>
+          <Link href="/v14" className="hover:underline underline-offset-4">
+            v14: adding docs in txt format
           </Link>
         </li>
       </ul>
