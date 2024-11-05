@@ -58,13 +58,18 @@ export default function Page() {
           </Link>
         </li>
         <li>
-          <Link href="/v9_test" className="hover:underline underline-offset-4">
-            v9 fix: bugfix filename and sources
+          <Link href="/v11" className="hover:underline underline-offset-4">
+            v11 fix: bugfix filename and sources
           </Link>
         </li>{" "}
         <li>
-          <Link href="/v9_nopip" className="hover:underline underline-offset-4">
-            v9 nopip: temporary removed PIP files to check improvements
+          <Link href="/v12" className="hover:underline underline-offset-4">
+            v12 nopip: temporary removed PIP files to check improvements
+          </Link>
+        </li>{" "}
+        <li>
+          <Link href="/v13" className="hover:underline underline-offset-4">
+            v13: frontend improvements, bugfixes and PIP files re-added
           </Link>
         </li>
       </ul>
