@@ -13,8 +13,8 @@ import unicodedata
 import logging
 
 
-DIR_PATH = "../docs/v9_nopip"
-NAMESPACE = "v9_nopip"
+DIR_PATH = "../docs/v14/IU_5005378805_3"
+NAMESPACE = "v14"
 
 
 load_dotenv(override=True)  # take environment variables from .env.
@@ -91,7 +91,7 @@ def process_xml(file_name, file_path, vectorstore):
     for doc in docs:
         # add filename to metadata
         doc.metadata["filename"] = ascii_file_name
-        print("doc.metadata", doc.metadata)
+        # print("doc.metadata", doc.metadata)
     # print()
     # print("docs", docs)
 
@@ -130,7 +130,7 @@ for file_name, file_path in tqdm(all_files):
     # if not file_name.endswith(".xml"):
     #     continue
     try:
-        # print(f"Processing file: {file_name}")
+        print(f"Processing file: {file_name}")
         if file_name.endswith(".xml"):
             process_xml(file_name, file_path, vectorstore)
         elif file_name.lower().endswith(tuple(skipped_files_extesions)):
