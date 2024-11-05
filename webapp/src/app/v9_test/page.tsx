@@ -119,6 +119,7 @@ export default function Page() {
         {messages.length > 0
           ? [...messages].reverse().map((m, i) => {
               const sourceKey = (messages.length - 1 - i).toString();
+              console.log(sourcesForMessages[sourceKey]);
               return m.role === "system" ? (
                 <IntermediateStep key={m.id} message={m}></IntermediateStep>
               ) : (

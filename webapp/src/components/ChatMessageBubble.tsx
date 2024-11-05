@@ -48,28 +48,28 @@ export function ChatMessageBubble(props: {
               <code className="mt-1 mr-2 bg-neutral-200 px-2 py-1 rounded text-xs">
                 {props.sources?.map((source, i) => (
                   <div
-                    className="flex flex-col items-start justify-start mt-2 text-left"
+                    className="flex flex-col items-start justify-start mt-4 text-left"
                     key={"source-" + i}
                   >
                     <span className="font-semibold">
-                      {`${i + 1}) "${
-                        source?.metadata?.source?.split("/").pop() ?? ""
-                      }"`}
+                      {`${i + 1}) "${source?.metadata?.filename ?? ""}"`}
                     </span>
-                    <span className="pt-2 font-semibold">
-                      {source.metadata.page !== undefined && (
-                        <>Page {source.metadata.page + 1} - </>
+                    <ul className="space-y-2 flex flex-col my-2">
+                      {(source.metadata.page !== undefined ||
+                        source.metadata.page_number !== undefined) && (
+                        <li className="">
+                          <span className="font-semibold ml-4">Page </span>
+                          {(source.metadata.page ||
+                            source.metadata.page_number) + 1}{" "}
+                        </li>
                       )}
-                    </span>
-                    {source.metadata?.loc?.lines !== undefined ? (
-                      <div>
-                        <br />
-                        Lines {source.metadata?.loc?.lines?.from} to{" "}
-                        {source.metadata?.loc?.lines?.to}
-                      </div>
-                    ) : (
-                      ""
-                    )}
+                      {source.metadata.Title && (
+                        <li className="">
+                          <span className="font-semibold ml-4">Titolo IU:</span>{" "}
+                          {source.metadata.Title}
+                        </li>
+                      )}
+                    </ul>
                   </div>
                 ))}
               </code>
