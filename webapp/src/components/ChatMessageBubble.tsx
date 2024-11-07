@@ -18,14 +18,24 @@ export function ChatMessageBubble(props: {
       ? `\n\n🔍 Sources:\n\n${props.sources
           .map((source, i) => {
             let sourceString = `${i + 1}) "${
-              source?.metadata?.source?.split("/").pop() ?? ""
+              source?.metadata?.filename ?? ""
             }"`;
-            if (source.metadata.page !== undefined) {
-              sourceString += `\nPage ${source.metadata.page + 1} - `;
+
+            // Include page or page_number
+            if (
+              source.metadata.page !== undefined ||
+              source.metadata.page_number !== undefined
+            ) {
+              sourceString += `\nPage ${
+                (source.metadata.page ?? source.metadata.page_number) + 1
+              }`;
             }
-            if (source.metadata?.loc?.lines !== undefined) {
-              sourceString += `\nLines ${source.metadata?.loc?.lines?.from} to ${source.metadata?.loc?.lines?.to}`;
+
+            // Include Title
+            if (source.metadata.Title) {
+              sourceString += `\nTitolo IU: ${source.metadata.Title}`;
             }
+
             return sourceString;
           })
           .join("\n")}`
