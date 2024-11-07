@@ -79,7 +79,7 @@ export default function Page() {
           </Link>
         </li>
         <li>
-          <Link href="/v14" className="hover:underline underline-offset-4">
+          <Link href="/v15" className="hover:underline underline-offset-4">
             v15: new pdf loader to avoid image metadata, System Prompt
             improvements for fallow up questions
           </Link>
