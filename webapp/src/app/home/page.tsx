@@ -78,6 +78,11 @@ export default function Page() {
             v14: adding docs in txt format
           </Link>
         </li>
+        <li>
+          <Link href="/v14" className="hover:underline underline-offset-4">
+            v15: new pdf loader to avoid image metadata
+          </Link>
+        </li>
       </ul>
     </div>
   );

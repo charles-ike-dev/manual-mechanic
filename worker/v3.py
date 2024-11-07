@@ -2,6 +2,7 @@ import os
 from dotenv import load_dotenv
 from langchain_community.document_loaders import UnstructuredFileLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_community.document_loaders import TextLoader
 from langchain_pinecone import PineconeVectorStore
 from langchain_openai import OpenAIEmbeddings
 from UI_loader import UIDocumentLoader
@@ -101,6 +102,22 @@ def process_xml(file_name, file_path, vectorstore):
     vectorstore.add_documents(documents=docs, ids=[ascii_file_name])
 
 
+def process_txt(file_name, file_path, vectorstore):
+    loader = TextLoader(file_path)
+    documents = loader.load()
+    text_splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000, chunk_overlap=0)
+    docs = text_splitter.split_documents(documents)
+    # Convert filename to ASCII
+    ascii_file_name = to_ascii(file_name)
+    for doc in docs:
+        doc.metadata["filename"] = ascii_file_name
+    # Generate ASCII IDs
+    ids = [f"{ascii_file_name}_{i}" for i in range(len(docs))]
+    # the id is the file name with a suffix of the document number after the text split
+    vectorstore.add_documents(documents=docs, ids=ids)
+
+
 def process_file(file_name, file_path, vectorstore):
     loader = UnstructuredLoader(file_path)
     documents = loader.load()
@@ -133,6 +150,8 @@ for file_name, file_path in tqdm(all_files):
         print(f"Processing file: {file_name}")
         if file_name.endswith(".xml"):
             process_xml(file_name, file_path, vectorstore)
+        elif file_name.endswith(".txt"):
+            process_txt(file_name, file_path, vectorstore)
         elif file_name.lower().endswith(tuple(skipped_files_extesions)):
             # Use tqdm.write() to avoid interfering with the progress bar
             tqdm.write(f"Skipping file: {file_name}")
