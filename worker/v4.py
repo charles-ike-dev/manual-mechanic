@@ -15,7 +15,7 @@ import unicodedata
 import logging
 
 
-DIR_PATH = "../docs/v14"
+DIR_PATH = "../docs/v13/IU_5005378805_3"
 NAMESPACE = "v15"
 
 
