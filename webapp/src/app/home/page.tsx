@@ -81,7 +81,12 @@ export default function Page() {
         <li>
           <Link href="/v15" className="hover:underline underline-offset-4">
             v15: new pdf loader to avoid image metadata, System Prompt
-            improvements for fallow up questions
+            improvements for follow up questions, adding all txt
+          </Link>
+        </li>
+        <li>
+          <Link href="/v16" className="hover:underline underline-offset-4">
+            v16: system prompt changes to show the entire source document
           </Link>
         </li>
       </ul>
