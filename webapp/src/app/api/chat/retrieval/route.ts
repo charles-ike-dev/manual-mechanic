@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const namespace = body.namespace ?? "default";
+    const aimodel =
+      body.aimodel || (process.env.OPENAI_MODEL as string) || "gpt-3.5-turbo";
     const systemprompt = body.systemprompt ?? "";
     const messages = body.messages ?? [];
     const previousMessages = messages.slice(0, -1);
@@ -76,8 +78,10 @@ Question: {question}
 
     const answerPrompt = PromptTemplate.fromTemplate(ANSWER_TEMPLATE);
 
+    console.log("aimodel", aimodel);
+
     const model = new ChatOpenAI({
-      model: process.env.OPENAI_MODEL!,
+      model: aimodel,
       temperature: 0,
     });
 

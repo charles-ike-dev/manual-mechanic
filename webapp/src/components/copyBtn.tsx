@@ -30,6 +30,7 @@ export default function CopyBtn({
     <Button
       onClick={() => copyToClipboard(text)}
       type="button"
+      variant={"outline"}
       className={cn(className, "flex flex-row items-center gap-x-2")}
       disabled={disabled}
       {...props}
