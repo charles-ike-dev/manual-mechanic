@@ -153,9 +153,9 @@ export default function Page() {
       <form onSubmit={sendMessage} className="flex w-full flex-col">
         <div className="flex w-full mt-4">
           <input
-            className="grow mr-8 p-4 rounded"
+            className="grow mr-8 p-4 rounded border border-gray-300"
             value={input}
-            placeholder={placeholder ?? "What's it like to be a pirate?"}
+            placeholder={placeholder ?? "Aks my anything"}
             onChange={handleInputChange}
           />
           <button

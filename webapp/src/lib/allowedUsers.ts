@@ -1,6 +1,4 @@
 // allowedUsers.ts
-export const allowedEmails: string[] = [
-  "utente1@example.com",
-  "utente2@example.com",
-];
-export const allowedPassword: string = "Ch4tIvgS7T3st010";
+export const allowedEmails: string[] =
+  process.env.ALLOWED_EMAILS?.split(",") || [];
+export const allowedPassword: string = process.env.ALLOWED_PASSWORD || "";
