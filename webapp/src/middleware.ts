@@ -12,8 +12,8 @@ export function middleware(request: NextRequest) {
   const isLoginPage = pathname === "/login" || pathname.startsWith("/login/");
   const isApiRoute = pathname.startsWith("/api/");
   const authenticated = request.cookies.get("authenticated")?.value;
-
-  if (isApiRoute || isPublicFile(pathname)) {
+  const isPublic = isPublicFile(pathname);
+  if (isApiRoute || isPublic) {
     // Allow API routes and public files to proceed
     return NextResponse.next();
   }
@@ -23,13 +23,10 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (authenticated && isLoginPage) {
+  if (authenticated && (isLoginPage || pathname !== "/v18")) {
     // Redirect authenticated users away from the login page
-    return NextResponse.redirect(new URL("/", request.url));
+    return NextResponse.redirect(new URL("/v18", request.url));
   }
-
-  // Proceed as normal
-  return NextResponse.next();
 }
 
 export const config = {
