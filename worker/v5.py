@@ -15,9 +15,9 @@ from utils import flatten_dict
 import unicodedata
 import logging
 
-DIR_PATH = "../docs/v15"
-PROCESSED_DIR_PATH = "../docs/v15/processed"
-NAMESPACE = "v15"
+DIR_PATH = "../docs/v18"
+PROCESSED_DIR_PATH = DIR_PATH + "/processed"
+NAMESPACE = "v18"
 
 load_dotenv(override=True)  # Take environment variables from .env.
 
@@ -156,6 +156,8 @@ skipped_files_extensions = [
 
 for file_name, file_path in tqdm(all_files):
     try:
+        if file_path.startswith(PROCESSED_DIR_PATH):
+            continue
         logging.info(f"Processing file: {file_name}")
         if file_name.endswith(".xml"):
             process_xml(file_name, file_path, vectorstore)

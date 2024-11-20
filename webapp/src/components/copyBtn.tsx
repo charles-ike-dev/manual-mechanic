@@ -31,6 +31,7 @@ export default function CopyBtn({
       onClick={() => copyToClipboard(text)}
       type="button"
       variant={"outline"}
+      size={"sm"}
       className={cn(className, "flex flex-row items-center gap-x-2")}
       disabled={disabled}
       {...props}

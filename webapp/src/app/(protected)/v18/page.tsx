@@ -120,7 +120,7 @@ export default function Page() {
         messages.length > 0 ? "border" : ""
       }`}
     >
-      <h2 className={`${messages.length > 0 ? "" : "hidden"} text-2xl`}>
+      <h2 className={`${messages.length > 0 ? "" : "hidden"} text-2xl mb-2`}>
         {emoji} {titleText}
       </h2>
       {messages.length === 0 ? emptyStateComponent : ""}
@@ -156,7 +156,7 @@ export default function Page() {
           />
           <button
             type="submit"
-            className="shrink-0 px-8 py-4 bg-sky-600 rounded w-28"
+            className="shrink-0 px-8 py-4 bg-sky-500 rounded w-28"
           >
             <div
               role="status"
