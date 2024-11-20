@@ -83,6 +83,9 @@ Question: {question}
     const model = new ChatOpenAI({
       model: aimodel,
       temperature: 0,
+      modelKwargs: {
+        seed: 777,
+      },
     });
 
     const pinecone = new Pinecone();
