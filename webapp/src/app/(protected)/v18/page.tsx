@@ -57,10 +57,14 @@ export default function Page() {
   const emptyStateComponent = (
     <div className="p-4 md:p-8 rounded bg-gray-100 w-full max-h-[85%] overflow-hidden flex flex-col">
       <span>This is the Zero Smart7 demo.</span>
-      <div className="mt-2 flex flex-col text-sm text-gray-700">
-        <span> Namespace: {NAMESPACE}</span>
-        <span> Model: {MODEL}</span>
-      </div>
+      {process.env.NODE_ENV === "development" ? (
+        <div className="mt-2 flex flex-col text-sm text-gray-700">
+          <span> Namespace: {NAMESPACE}</span>
+          <span> Model: {MODEL}</span>
+        </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 
