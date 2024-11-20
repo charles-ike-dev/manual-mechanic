@@ -12,7 +12,7 @@ import { ChatMessageBubble } from "@/components/ChatMessageBubble";
 import { IntermediateStep } from "@/components/IntermediateStep";
 
 const MODEL = "ft:gpt-4o-mini-2024-07-18:s7rd::AReQWmy2";
-const NAMESPACE = "v9";
+const NAMESPACE = "v18";
 const SYSTEMPROMPT = `You are a specialized assistant for **Iveco S-WAY AS**, tasked with reading and analyzing technical documents, manuals, and internal resources. Your goal is to provide precise, accurate, and complete answers to technical and operational questions by retrieving relevant information from available documents and linking them using specific codes and references whenever possible.
 
 ## Instructions
