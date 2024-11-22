@@ -5,11 +5,14 @@ import { allowedEmails, allowedPassword } from "@/lib/allowedUsers";
 export async function POST(request: NextRequest) {
   const { email, password } = await request.json();
 
+  // convert the email to lowercase
+  const emailLowerCase = email.toLowerCase();
   // Aggiungi console log per il debug
-  console.log("Email:", email);
+  console.log("Email:", emailLowerCase);
+
   console.log("Password:", password);
 
-  if (allowedEmails.includes(email) && password === allowedPassword) {
+  if (allowedEmails.includes(emailLowerCase) && password === allowedPassword) {
     // Imposta un cookie di autenticazione
     const response = NextResponse.json({
       message: "Login effettuato con successo",
