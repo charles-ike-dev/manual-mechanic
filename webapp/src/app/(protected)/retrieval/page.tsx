@@ -15,7 +15,7 @@ export default function AgentsPage() {
         "Ask me anything! I can help you find documents, answer questions, and more."
       }
       emoji="7️⃣"
-      titleText="Smart7 Assistant"
+      titleText="ChatIVG Custom Assistant"
     ></ChatWindow>
   );
 }

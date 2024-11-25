@@ -52,11 +52,11 @@ export default function Page() {
   const endpoint = "api/chat/retrieval";
   const placeholder =
     "Ask me anything! I can help you find documents, answer questions, and more.";
-  const titleText = "Smart7 Assistant";
+  const titleText = "ChatIVG Custom Assistant";
   const emoji = "7️⃣";
   const emptyStateComponent = (
     <div className="p-4 md:p-8 rounded bg-gray-100 w-full max-h-[85%] overflow-hidden flex flex-col">
-      <span>This is the Zero Smart7 demo.</span>
+      <span>This is the Zero ChatIVG Custom demo.</span>
       {process.env.NODE_ENV === "development" ? (
         <div className="mt-2 flex flex-col text-sm text-gray-700">
           <span> Namespace: {NAMESPACE}</span>
