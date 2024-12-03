@@ -23,9 +23,9 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (authenticated && (isLoginPage || pathname !== "/v18")) {
+  if (authenticated && (isLoginPage || pathname !== "/v19")) {
     // Redirect authenticated users away from the login page
-    return NextResponse.redirect(new URL("/v18", request.url));
+    return NextResponse.redirect(new URL("/v19", request.url));
   }
 }
 
