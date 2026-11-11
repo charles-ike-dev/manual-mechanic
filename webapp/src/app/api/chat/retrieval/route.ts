@@ -164,7 +164,7 @@ Question: {question}
         documents.map((doc) => {
           console.log("doc", doc.metadata);
           return {
-            pageContent: doc.pageContent.slice(0, 50) + "...",
+            pageContent: doc.pageContent.slice(0, 200) + "...",
             metadata: doc.metadata,
           };
         })

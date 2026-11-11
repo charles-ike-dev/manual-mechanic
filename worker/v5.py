@@ -15,9 +15,9 @@ from utils import flatten_dict
 import unicodedata
 import logging
 
-DIR_PATH = "../docs/v19"
+DIR_PATH = "../docs/v20"
 PROCESSED_DIR_PATH = DIR_PATH + "/processed"
-NAMESPACE = "v19"
+NAMESPACE = "v20"
 
 load_dotenv(override=True)  # Take environment variables from .env.
 

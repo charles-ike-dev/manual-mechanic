@@ -1,6 +1,7 @@
 // middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { version } from "@/lib/config";
 
 function isPublicFile(pathname: string): boolean {
   // Exclude static files (e.g., images, scripts, styles)
@@ -23,9 +24,9 @@ export function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
-  if (authenticated && (isLoginPage || pathname !== "/v19")) {
+  if (authenticated && (isLoginPage || pathname !== `/${version}`)) {
     // Redirect authenticated users away from the login page
-    return NextResponse.redirect(new URL("/v19", request.url));
+    return NextResponse.redirect(new URL(`/${version}`, request.url));
   }
 }
 

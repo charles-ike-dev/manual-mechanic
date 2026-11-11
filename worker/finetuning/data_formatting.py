@@ -2,7 +2,7 @@ import json
 import os
 
 # Define the file paths
-input_file = './augmented_dataset_20241108_155339.json'
+input_file = './augmented_dataset_20241218_151657.json'
 output_file = os.path.splitext(input_file)[0] + '_output.jsonl'
 
 # Load the content of the input file

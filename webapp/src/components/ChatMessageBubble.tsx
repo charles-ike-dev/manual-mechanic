@@ -79,6 +79,13 @@ export function ChatMessageBubble(props: {
                           {source.metadata.Title}
                         </li>
                       )}
+
+                      {source.pageContent && (
+                        <li className="">
+                          <span className="font-semibold ml-4">Content:</span>{" "}
+                          {source.pageContent}
+                        </li>
+                      )}
                     </ul>
                   </div>
                 ))}
